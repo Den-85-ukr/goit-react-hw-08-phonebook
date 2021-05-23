@@ -1,24 +1,30 @@
+import { Component } from 'react';
 import PropTypes from 'prop-types';
-import { connect } from "react-redux";
+import { connect } from 'react-redux';
 
 import contactSelectors from '../../redux/contact/contact-selectors';
-import contactActions from "../../redux/contact/contact-actions";
+import contactActions from '../../redux/contact/contact-actions';
 
 import styles from './Filter.module.scss';
 
-const Filter = ({ value, onChange }) => (
-  <label>
-    <span className={styles.filter_title}>Find contact by name</span>
-    <input
-      type="text"
-      value={value}
-      onChange={onChange}
-      // name="filter"
-      // id={this.filterId}
-      placeholder="Enter name"
-    />
-  </label>
-);
+class Filter extends Component {
+  render() {
+    const { filter, onChange } = this.props;
+
+    return (
+      <label>
+        <span className={styles.filter_title}>Find contacts by name</span>
+        <input
+          type="text"
+          value={filter}
+          id={this.filterId}
+          onChange={onChange}
+          placeholder="Enter name"
+        />
+      </label>
+    );
+  }
+}
 
 Filter.defaultProps = {
   value: '',
@@ -34,7 +40,8 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  onChange: event => dispatch(contactActions.changeFilter(event.currentTarget.value)),
+  onChange: event =>
+    dispatch(contactActions.changeFilter(event.currentTarget.value)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Filter);
