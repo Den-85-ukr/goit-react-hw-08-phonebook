@@ -13,7 +13,8 @@ const Filter = ({ value, onChange }) => (
       type="text"
       value={value}
       onChange={onChange}
-      name="filter"
+      // name="filter"
+      // id={this.filterId}
       placeholder="Enter name"
     />
   </label>

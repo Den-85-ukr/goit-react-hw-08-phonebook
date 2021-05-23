@@ -38,7 +38,7 @@ class ContactList extends Component {
 ContactList.propTypes = {
   fetchContacts: PropTypes.func.isRequired,
   onDeleteContact: PropTypes.func.isRequired,
-  contacts: PropTypes.arrayOf.isRequired,
+  // contacts: PropTypes.arrayOf.isRequired,
 };
 
 const mapStateToProps = state => {

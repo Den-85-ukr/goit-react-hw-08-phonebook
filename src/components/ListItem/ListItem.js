@@ -11,7 +11,7 @@ class ListItem extends Component {
     return (
       <li>
         <span className={styles.contact}>
-          {name}:{number}
+          {name}: {number}
         </span>
         <button onClick={handleDelete} type="button">
           Delete
@@ -24,7 +24,7 @@ class ListItem extends Component {
 ListItem.propTypes = {
   name: PropTypes.string.isRequired,
   number: PropTypes.string.isRequired,
-  id: PropTypes.number.isRequired,
+  id: PropTypes.string.isRequired,
   onDeleteItem: PropTypes.func.isRequired,
 };
 

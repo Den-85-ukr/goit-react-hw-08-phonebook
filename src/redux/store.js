@@ -1,54 +1,41 @@
-//import { combineReducers } from "redux";
-import { configureStore, getDefaultMiddleware } from "@reduxjs/toolkit";
-import { logger } from 'redux-logger';
-// import {
-//   persistStore,
-//   persistReducer,
-//   FLUSH,
-//   REHYDRATE,
-//   PAUSE,
-//   PERSIST,
-//   PURGE,
-//   REGISTER,
-// } from "redux-persist";
-//import storage from 'redux-persist/lib/storage' // defaults to localStorage for web
+import { configureStore, getDefaultMiddleware } from '@reduxjs/toolkit';
+import {
+  persistStore,
+  persistReducer,
+  FLUSH,
+  REHYDRATE,
+  PAUSE,
+  PERSIST,
+  PURGE,
+  REGISTER,
+} from 'redux-persist';
+import storage from 'redux-persist/lib/storage';
 
-//import initialState from './initialState';
 import contactReducer from './contact/contact-reducer';
-
-
-// // Используем редюсер-болванку
-// const reducer = (state = initialState, action) => state;
-
-// const store = createStore(
-//   rootReducer,
-//   composeWithDevTools()
-// );
+import { auth } from './auth';
 
 const middleware = [
-  ...getDefaultMiddleware(
-    // {
-    // serializableCheck: {
-    //   ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
-    // },
-    // }
-  ),
-  logger,
+  ...getDefaultMiddleware({
+    serializableCheck: {
+      ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+    },
+  }),
 ];
 
-// const contactsPersistConfig = {
-//   key: "todos",
-//   storage,
-//   blacklist: ["filter"],
-// };
+const authPersistConfig = {
+  key: 'auth',
+  storage,
+  whitelist: ['token'],
+};
 
 export const store = configureStore({
   reducer: {
-    //contacts: persistReducer(contactsPersistConfig, contactReducer),
     contacts: contactReducer,
+
+    auth: persistReducer(authPersistConfig, auth),
   },
   middleware,
   devTools: process.env.NODE_ENV === 'development',
 });
 
-// export const persistor = persistStore(store);
+export const persistor = persistStore(store);
